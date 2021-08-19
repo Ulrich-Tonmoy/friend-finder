@@ -1,2 +1,2 @@
 # friend-finder
-Social Media website
+Social Media website and job finder
