@@ -24,12 +24,11 @@ function App() {
     const [cookies, setCookie, removeCookie] = useCookies(["user"]);
     const fileName = "UserRegistrationInfo";
 
-    let viewers = [];
+    let viewers = [{ email: user.email, password: user.password }];
     GetUser(setUser, "getUser/" + cookies.user);
-    const loginFunction = (u) => {
-        setUser(user);
+    const loginFunction = (user) => {
         setCookie("user", user.id);
-        viewers = [{ email: user.email, password: user.password }];
+        setUser(user);
     };
 
     const logoutFunction = () => {
@@ -94,7 +93,11 @@ function App() {
                     {cookies.user ? <EditProfile /> : <Redirect to="/login" />}
                 </Route>
                 <Route path="/profile/:id">
-                    <FriendsProfile />
+                    {cookies.user ? (
+                        <FriendsProfile />
+                    ) : (
+                        <Redirect to="/login" />
+                    )}
                 </Route>
                 <Route path="*">
                     <h3>404 not found</h3>

@@ -7,7 +7,7 @@ import { GoogleLogin } from "react-google-login";
 export default function Login({ callback }) {
     const history = useHistory();
 
-    const [user, setUser] = useState();
+    const [user, setUser] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
@@ -23,9 +23,10 @@ export default function Login({ callback }) {
     };
 
     const responseGoogle = (response) => {
-        Google(response.profileObj, setUser);
-        callback(user);
-        history.push("/excel");
+        Google(response.profileObj, callback);
+        setTimeout(function () {
+            history.push("/excel");
+        }, 1000);
 
         // console.log(response);
         // console.log(response.profileObj);
